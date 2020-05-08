@@ -9,14 +9,14 @@ import (
 type DNSResolver struct {
 }
 
-func (ds *DNSResolver) DomainA(domain string) net.IP {
+func (ds *DNSResolver) DomainA(domain string) []net.IP {
 	fmt.Println("implement me")
-	return net.ParseIP("0.0.0.0")
+	return nil
 }
 
-func (ds *DNSResolver) DomainMX(domainMX string) net.IP {
+func (ds *DNSResolver) DomainMX(domainMX string) []net.IP {
 	fmt.Println("implement me")
-	return net.ParseIP("0.0.0.0")
+	return nil
 }
 
 func (ds *DNSResolver) BMailBCA(mailHash string) (bmail.Address, string) {

@@ -28,14 +28,14 @@ var ResConf *EthResolverConf
 type EthResolver struct {
 }
 
-func (er *EthResolver) DomainA(domain string) net.IP {
+func (er *EthResolver) DomainA(domain string) []net.IP {
 	fmt.Println("implement me")
-	return net.ParseIP("0.0.0.0")
+	return nil
 }
 
-func (er *EthResolver) DomainMX(domainMX string) net.IP {
+func (er *EthResolver) DomainMX(domainMX string) []net.IP {
 	fmt.Println("implement me")
-	return net.ParseIP("0.0.0.0")
+	return nil
 }
 
 func (er *EthResolver) BMailBCA(mailHash string) (bmail.Address, string) {

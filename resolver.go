@@ -7,8 +7,8 @@ import (
 )
 
 type NameResolver interface {
-	DomainA(domain string) net.IP
-	DomainMX(domain string) net.IP
+	DomainA(domain string) []net.IP
+	DomainMX(domain string) []net.IP
 	BMailBCA(mailHash string) (address bmail.Address, cname string)
 }
 

@@ -3,6 +3,7 @@ package resolver
 import (
 	"fmt"
 	"github.com/BASChain/go-bmail-account"
+	"github.com/BASChain/go-bmail-resolver/eth"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"net"
@@ -16,11 +17,11 @@ type EthResolverConf struct {
 var conf = []*EthResolverConf{
 	&EthResolverConf{
 		ApiUrl:  "https://infura.io/v3/f3245cef90ed440897e43efc6b3dd0f7",
-		MailDNS: common.HexToAddress("0x4b23F26d141cB70AD222e00cFa3Bac8905457035"),
+		MailDNS: common.HexToAddress("0x58af099F693efb2b907b1450Bb0268C45bCB6b5D"),
 	},
 	&EthResolverConf{
 		ApiUrl:  "https://ropsten.infura.io/v3/f3245cef90ed440897e43efc6b3dd0f7",
-		MailDNS: common.HexToAddress("0x4b23F26d141cB70AD222e00cFa3Bac8905457035"),
+		MailDNS: common.HexToAddress("0x58af099F693efb2b907b1450Bb0268C45bCB6b5D"),
 	},
 }
 var ResConf *EthResolverConf
@@ -47,12 +48,12 @@ func (er *EthResolver) BMailBCA(mailHash string) (bmail.Address, string) {
 		fmt.Println("[BMailBCA]: connect err:", err.Error())
 		return "", ""
 	}
-	res, err := conn.DNS(nil, hash)
+	res, err := conn.QueryEmailInfo(nil, hash)
 	if err != nil {
 		fmt.Println("[BMailBCA]: connect err:", err.Error())
 		return "", ""
 	}
-	return bmail.Address(res.Address), res.CName
+	return bmail.Address(res.BcAddress), string(res.AliasName)
 }
 
 func NewEthResolver(debug bool) NameResolver {
@@ -65,10 +66,10 @@ func NewEthResolver(debug bool) NameResolver {
 	return obj
 }
 
-func connect() (*BMail, error) {
+func connect() (*eth.BasView, error) {
 	conn, err := ethclient.Dial(ResConf.ApiUrl)
 	if err != nil {
 		return nil, err
 	}
-	return NewBMail(ResConf.MailDNS, conn)
+	return eth.NewBasView(ResConf.MailDNS, conn)
 }

@@ -14,9 +14,9 @@ func (ds *DNSResolver) DomainA(domain string) []net.IP {
 	return nil
 }
 
-func (ds *DNSResolver) DomainMX(domainMX string) []net.IP {
+func (ds *DNSResolver) DomainMX(domainMX string) ([]net.IP, []bmail.Address) {
 	fmt.Println("implement me")
-	return nil
+	return nil, nil
 }
 
 func (ds *DNSResolver) BMailBCA(mailHash string) (bmail.Address, string) {

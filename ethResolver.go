@@ -1,59 +1,107 @@
 package resolver
 
 import (
-	"fmt"
 	"github.com/BASChain/go-bmail-account"
 	"github.com/BASChain/go-bmail-resolver/eth"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"math/big"
 	"net"
+	"time"
 )
 
 type EthResolverConf struct {
-	ApiUrl  string
-	MailDNS common.Address
+	AccessPoints []string
+	BasViewAddr common.Address
 }
 
 var conf = []*EthResolverConf{
-	&EthResolverConf{
-		ApiUrl:  "https://infura.io/v3/f3245cef90ed440897e43efc6b3dd0f7",
-		MailDNS: common.HexToAddress("0x58af099F693efb2b907b1450Bb0268C45bCB6b5D"),
+	{
+		AccessPoints: []string{"https://infura.io/v3/f3245cef90ed440897e43efc6b3dd0f7"},
+		BasViewAddr:  common.HexToAddress("0x58af099F693efb2b907b1450Bb0268C45bCB6b5D"),
 	},
-	&EthResolverConf{
-		ApiUrl:  "https://ropsten.infura.io/v3/f3245cef90ed440897e43efc6b3dd0f7",
-		MailDNS: common.HexToAddress("0x58af099F693efb2b907b1450Bb0268C45bCB6b5D"),
+	{
+		AccessPoints: []string{"https://ropsten.infura.io/v3/f3245cef90ed440897e43efc6b3dd0f7",
+								"https://ropsten.infura.io/v3/831ab04fa4964991b5fba5c52106d7b0"},
+		BasViewAddr: common.HexToAddress("0xf3e0222FC99897E3569F4490026D914A9421572a"),
 	},
 }
 var ResConf *EthResolverConf
+
+const Separator = 0x7f
 
 type EthResolver struct {
 }
 
 func (er *EthResolver) DomainA(domain string) []net.IP {
-	fmt.Println("implement me")
-	return nil
+	conf := QueryDomainConfigs(GetHash(domain), 0)
+	ipStrings := Split(conf.A, Separator)
+	var r []net.IP
+	for _, t := range ipStrings {
+		r = append(r, net.ParseIP(t))
+	}
+	return r
 }
 
-func (er *EthResolver) DomainMX(domainMX string) ([]net.IP, []bmail.Address) {
-	fmt.Println("implement me")
-	return nil, nil
+func (er *EthResolver) DomainMX(domain string) ([]net.IP, []bmail.Address) {
+	conf := QueryDomainConfigs(GetHash(domain), 0)
+	ipStrings := Split(conf.A, Separator)
+	var ips []net.IP
+	for _, t := range ipStrings {
+		ips = append(ips, net.ParseIP(t))
+	}
+	mxStrings :=  Split(conf.MX, Separator)
+	var mxs []bmail.Address
+	for _, t := range mxStrings {
+		mxs = append(mxs, bmail.Address(t))
+	}
+	return ips, mxs
 }
 
-func (er *EthResolver) BMailBCA(mailHash string) (bmail.Address, string) {
+func (er *EthResolver) BMailBCA(mailName string) (bmail.Address, string) {
+	info  := QueryEmailInfo(GetHash(mailName),0)
+	return bmail.Address(string(info.BcAddress)), string(info.AliasName)
+}
 
-	hash := common.HexToHash(mailHash) //crypto.Keccak256Hash([]byte(mailName))
-	fmt.Println(mailHash)
-	conn, err := connect()
-	if err != nil {
-		fmt.Println("[BMailBCA]: connect err:", err.Error())
-		return "", ""
+func QueryEmailInfo(hash Hash, tryTimes int)  *MailInfo{
+	opts := GetCallOpts(0)
+	conn := connect()
+	defer conn.Close()
+	result, err := BasView(conn).QueryEmailInfo(opts, hash)
+	if err!=nil{
+		tryTimes +=1
+		if tryTimes > 3{
+			logger.Error("can't query mail info after many retries",  err)
+			return nil
+		}else{
+			time.Sleep(time.Duration(RetryRule[tryTimes]) * time.Second)
+			return QueryEmailInfo(hash,  tryTimes)
+		}
+	}else{
+		r := ConvertToMailInfo(result)
+		return &r
 	}
-	res, err := conn.QueryEmailInfo(nil, hash)
-	if err != nil {
-		fmt.Println("[BMailBCA]: connect err:", err.Error())
-		return "", ""
+}
+
+func QueryDomainConfigs(hash Hash, tryTimes int) *Config{
+	opts := GetCallOpts(0)
+	conn := connect()
+	defer conn.Close()
+	result, err:= BasView(conn).QueryDomainConfigs(opts, hash)
+	if err!=nil{
+		tryTimes +=1
+		if tryTimes > 3{
+			logger.Error("can't query domain config after many retries",  err)
+			return nil
+		}else{
+			time.Sleep(time.Duration(RetryRule[tryTimes]) * time.Second)
+			return QueryDomainConfigs(hash,  tryTimes)
+		}
+	}else{
+		r := ConvertToConfig(result)
+		return &r
 	}
-	return bmail.Address(res.BcAddress), string(res.AliasName)
 }
 
 func NewEthResolver(debug bool) NameResolver {
@@ -66,10 +114,34 @@ func NewEthResolver(debug bool) NameResolver {
 	return obj
 }
 
-func connect() (*eth.BasView, error) {
-	conn, err := ethclient.Dial(ResConf.ApiUrl)
-	if err != nil {
-		return nil, err
+func BasView(conn *ethclient.Client) *eth.BasView{
+	if instance, err := eth.NewBasView(ResConf.BasViewAddr, conn); err==nil{
+		return instance
+	}else{
+		logger.Error("can't recover BasView instance, ", err)
+		return nil
 	}
-	return eth.NewBasView(ResConf.MailDNS, conn)
+}
+
+func connect() *ethclient.Client {
+	for _, s := range ResConf.AccessPoints {
+		c,err:=ethclient.Dial(s)
+		if err!=nil{
+			continue
+		}else{
+			return c
+		}
+	}
+	logger.Error("all access points failed, please check network!!!")
+	return nil
+}
+
+func GetCallOpts(blockNumber uint64) *bind.CallOpts {
+	var opts = new(bind.CallOpts)
+	if blockNumber == 0 {
+		opts = nil
+	}else{
+		opts.BlockNumber = new(big.Int).SetUint64(blockNumber)
+	}
+	return opts
 }

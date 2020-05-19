@@ -34,9 +34,9 @@ func (er *EthResolver) DomainA(domain string) []net.IP {
 	return nil
 }
 
-func (er *EthResolver) DomainMX(domainMX string) ([]net.IP,[]bmail.Address) {
+func (er *EthResolver) DomainMX(domainMX string) ([]net.IP, []bmail.Address) {
 	fmt.Println("implement me")
-	return nil,nil
+	return nil, nil
 }
 
 func (er *EthResolver) BMailBCA(mailHash string) (bmail.Address, string) {

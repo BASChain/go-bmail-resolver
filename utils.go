@@ -2,7 +2,7 @@ package resolver
 
 import (
 	"encoding/hex"
-	solsha3 "github.com/miguelmota/go-solidity-sha3"
+	"github.com/ethereum/go-ethereum/crypto"
 )
 
 type Hash [32]byte
@@ -12,7 +12,7 @@ func (hash Hash)String() string{
 }
 
 func GetHash(key string) Hash{
-	hash := solsha3.SoliditySHA3(solsha3.String(key))
+	hash  := crypto.Keccak256Hash([]byte(key))
 	var ret [32]byte
 	for i:=0;i<32;i++ {
 		ret[i] = hash[i]

@@ -20,7 +20,6 @@ var (
 	_ = big.NewInt
 	_ = strings.NewReader
 	_ = ethereum.NotFound
-	_ = abi.U256
 	_ = bind.Bind
 	_ = common.Big1
 	_ = types.BloomLookup
@@ -174,7 +173,7 @@ func (_BasView *BasViewTransactorRaw) Transact(opts *bind.TransactOpts, method s
 
 // DAOAddress is a free data retrieval call binding the contract method 0xd392eab1.
 //
-// Solidity: function DAOAddress() constant returns(address)
+// Solidity: function DAOAddress() view returns(address)
 func (_BasView *BasViewCaller) DAOAddress(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -186,21 +185,21 @@ func (_BasView *BasViewCaller) DAOAddress(opts *bind.CallOpts) (common.Address, 
 
 // DAOAddress is a free data retrieval call binding the contract method 0xd392eab1.
 //
-// Solidity: function DAOAddress() constant returns(address)
+// Solidity: function DAOAddress() view returns(address)
 func (_BasView *BasViewSession) DAOAddress() (common.Address, error) {
 	return _BasView.Contract.DAOAddress(&_BasView.CallOpts)
 }
 
 // DAOAddress is a free data retrieval call binding the contract method 0xd392eab1.
 //
-// Solidity: function DAOAddress() constant returns(address)
+// Solidity: function DAOAddress() view returns(address)
 func (_BasView *BasViewCallerSession) DAOAddress() (common.Address, error) {
 	return _BasView.Contract.DAOAddress(&_BasView.CallOpts)
 }
 
 // ErrorCode is a free data retrieval call binding the contract method 0x5d05fa53.
 //
-// Solidity: function ErrorCode(uint8 ) constant returns(string)
+// Solidity: function ErrorCode(uint8 ) view returns(string)
 func (_BasView *BasViewCaller) ErrorCode(opts *bind.CallOpts, arg0 uint8) (string, error) {
 	var (
 		ret0 = new(string)
@@ -212,21 +211,21 @@ func (_BasView *BasViewCaller) ErrorCode(opts *bind.CallOpts, arg0 uint8) (strin
 
 // ErrorCode is a free data retrieval call binding the contract method 0x5d05fa53.
 //
-// Solidity: function ErrorCode(uint8 ) constant returns(string)
+// Solidity: function ErrorCode(uint8 ) view returns(string)
 func (_BasView *BasViewSession) ErrorCode(arg0 uint8) (string, error) {
 	return _BasView.Contract.ErrorCode(&_BasView.CallOpts, arg0)
 }
 
 // ErrorCode is a free data retrieval call binding the contract method 0x5d05fa53.
 //
-// Solidity: function ErrorCode(uint8 ) constant returns(string)
+// Solidity: function ErrorCode(uint8 ) view returns(string)
 func (_BasView *BasViewCallerSession) ErrorCode(arg0 uint8) (string, error) {
 	return _BasView.Contract.ErrorCode(&_BasView.CallOpts, arg0)
 }
 
 // CheckRootRegistry is a free data retrieval call binding the contract method 0xa84ccbf4.
 //
-// Solidity: function checkRootRegistry(bytes name, bool isCustom, uint256 cusPrice, uint8 durationInYear) constant returns(uint8, bool, uint256)
+// Solidity: function checkRootRegistry(bytes name, bool isCustom, uint256 cusPrice, uint8 durationInYear) view returns(uint8, bool, uint256)
 func (_BasView *BasViewCaller) CheckRootRegistry(opts *bind.CallOpts, name []byte, isCustom bool, cusPrice *big.Int, durationInYear uint8) (uint8, bool, *big.Int, error) {
 	var (
 		ret0 = new(uint8)
@@ -244,21 +243,21 @@ func (_BasView *BasViewCaller) CheckRootRegistry(opts *bind.CallOpts, name []byt
 
 // CheckRootRegistry is a free data retrieval call binding the contract method 0xa84ccbf4.
 //
-// Solidity: function checkRootRegistry(bytes name, bool isCustom, uint256 cusPrice, uint8 durationInYear) constant returns(uint8, bool, uint256)
+// Solidity: function checkRootRegistry(bytes name, bool isCustom, uint256 cusPrice, uint8 durationInYear) view returns(uint8, bool, uint256)
 func (_BasView *BasViewSession) CheckRootRegistry(name []byte, isCustom bool, cusPrice *big.Int, durationInYear uint8) (uint8, bool, *big.Int, error) {
 	return _BasView.Contract.CheckRootRegistry(&_BasView.CallOpts, name, isCustom, cusPrice, durationInYear)
 }
 
 // CheckRootRegistry is a free data retrieval call binding the contract method 0xa84ccbf4.
 //
-// Solidity: function checkRootRegistry(bytes name, bool isCustom, uint256 cusPrice, uint8 durationInYear) constant returns(uint8, bool, uint256)
+// Solidity: function checkRootRegistry(bytes name, bool isCustom, uint256 cusPrice, uint8 durationInYear) view returns(uint8, bool, uint256)
 func (_BasView *BasViewCallerSession) CheckRootRegistry(name []byte, isCustom bool, cusPrice *big.Int, durationInYear uint8) (uint8, bool, *big.Int, error) {
 	return _BasView.Contract.CheckRootRegistry(&_BasView.CallOpts, name, isCustom, cusPrice, durationInYear)
 }
 
 // CheckSubRegistry is a free data retrieval call binding the contract method 0xd13b893f.
 //
-// Solidity: function checkSubRegistry(bytes rName, bytes sName, uint256 durationInYear) constant returns(uint8, uint256)
+// Solidity: function checkSubRegistry(bytes rName, bytes sName, uint256 durationInYear) view returns(uint8, uint256)
 func (_BasView *BasViewCaller) CheckSubRegistry(opts *bind.CallOpts, rName []byte, sName []byte, durationInYear *big.Int) (uint8, *big.Int, error) {
 	var (
 		ret0 = new(uint8)
@@ -274,21 +273,21 @@ func (_BasView *BasViewCaller) CheckSubRegistry(opts *bind.CallOpts, rName []byt
 
 // CheckSubRegistry is a free data retrieval call binding the contract method 0xd13b893f.
 //
-// Solidity: function checkSubRegistry(bytes rName, bytes sName, uint256 durationInYear) constant returns(uint8, uint256)
+// Solidity: function checkSubRegistry(bytes rName, bytes sName, uint256 durationInYear) view returns(uint8, uint256)
 func (_BasView *BasViewSession) CheckSubRegistry(rName []byte, sName []byte, durationInYear *big.Int) (uint8, *big.Int, error) {
 	return _BasView.Contract.CheckSubRegistry(&_BasView.CallOpts, rName, sName, durationInYear)
 }
 
 // CheckSubRegistry is a free data retrieval call binding the contract method 0xd13b893f.
 //
-// Solidity: function checkSubRegistry(bytes rName, bytes sName, uint256 durationInYear) constant returns(uint8, uint256)
+// Solidity: function checkSubRegistry(bytes rName, bytes sName, uint256 durationInYear) view returns(uint8, uint256)
 func (_BasView *BasViewCallerSession) CheckSubRegistry(rName []byte, sName []byte, durationInYear *big.Int) (uint8, *big.Int, error) {
 	return _BasView.Contract.CheckSubRegistry(&_BasView.CallOpts, rName, sName, durationInYear)
 }
 
 // DomainIsWild is a free data retrieval call binding the contract method 0x256dec96.
 //
-// Solidity: function domainIsWild(bytes32 hash) constant returns(bool)
+// Solidity: function domainIsWild(bytes32 hash) view returns(bool)
 func (_BasView *BasViewCaller) DomainIsWild(opts *bind.CallOpts, hash [32]byte) (bool, error) {
 	var (
 		ret0 = new(bool)
@@ -300,21 +299,21 @@ func (_BasView *BasViewCaller) DomainIsWild(opts *bind.CallOpts, hash [32]byte) 
 
 // DomainIsWild is a free data retrieval call binding the contract method 0x256dec96.
 //
-// Solidity: function domainIsWild(bytes32 hash) constant returns(bool)
+// Solidity: function domainIsWild(bytes32 hash) view returns(bool)
 func (_BasView *BasViewSession) DomainIsWild(hash [32]byte) (bool, error) {
 	return _BasView.Contract.DomainIsWild(&_BasView.CallOpts, hash)
 }
 
 // DomainIsWild is a free data retrieval call binding the contract method 0x256dec96.
 //
-// Solidity: function domainIsWild(bytes32 hash) constant returns(bool)
+// Solidity: function domainIsWild(bytes32 hash) view returns(bool)
 func (_BasView *BasViewCallerSession) DomainIsWild(hash [32]byte) (bool, error) {
 	return _BasView.Contract.DomainIsWild(&_BasView.CallOpts, hash)
 }
 
 // GetOANNParams is a free data retrieval call binding the contract method 0xff32cd20.
 //
-// Solidity: function getOANNParams() constant returns(uint256 MAX_YEAR, uint256 AROOT_GAS, uint256 BROOT_GAS, uint256 SUB_GAS, uint256 CUSTOM_PRICE_GAS)
+// Solidity: function getOANNParams() view returns(uint256 MAX_YEAR, uint256 AROOT_GAS, uint256 BROOT_GAS, uint256 SUB_GAS, uint256 CUSTOM_PRICE_GAS)
 func (_BasView *BasViewCaller) GetOANNParams(opts *bind.CallOpts) (struct {
 	MAXYEAR        *big.Int
 	AROOTGAS       *big.Int
@@ -336,7 +335,7 @@ func (_BasView *BasViewCaller) GetOANNParams(opts *bind.CallOpts) (struct {
 
 // GetOANNParams is a free data retrieval call binding the contract method 0xff32cd20.
 //
-// Solidity: function getOANNParams() constant returns(uint256 MAX_YEAR, uint256 AROOT_GAS, uint256 BROOT_GAS, uint256 SUB_GAS, uint256 CUSTOM_PRICE_GAS)
+// Solidity: function getOANNParams() view returns(uint256 MAX_YEAR, uint256 AROOT_GAS, uint256 BROOT_GAS, uint256 SUB_GAS, uint256 CUSTOM_PRICE_GAS)
 func (_BasView *BasViewSession) GetOANNParams() (struct {
 	MAXYEAR        *big.Int
 	AROOTGAS       *big.Int
@@ -349,7 +348,7 @@ func (_BasView *BasViewSession) GetOANNParams() (struct {
 
 // GetOANNParams is a free data retrieval call binding the contract method 0xff32cd20.
 //
-// Solidity: function getOANNParams() constant returns(uint256 MAX_YEAR, uint256 AROOT_GAS, uint256 BROOT_GAS, uint256 SUB_GAS, uint256 CUSTOM_PRICE_GAS)
+// Solidity: function getOANNParams() view returns(uint256 MAX_YEAR, uint256 AROOT_GAS, uint256 BROOT_GAS, uint256 SUB_GAS, uint256 CUSTOM_PRICE_GAS)
 func (_BasView *BasViewCallerSession) GetOANNParams() (struct {
 	MAXYEAR        *big.Int
 	AROOTGAS       *big.Int
@@ -362,7 +361,7 @@ func (_BasView *BasViewCallerSession) GetOANNParams() (struct {
 
 // QueryDomainConfigs is a free data retrieval call binding the contract method 0x4f69b3a2.
 //
-// Solidity: function queryDomainConfigs(bytes32 nameHash) constant returns(bytes A, bytes AAAA, bytes MX, bytes BlockChain, bytes IOTA, bytes CName, bytes MXBCA)
+// Solidity: function queryDomainConfigs(bytes32 nameHash) view returns(bytes A, bytes AAAA, bytes MX, bytes BlockChain, bytes IOTA, bytes CName, bytes MXBCA)
 func (_BasView *BasViewCaller) QueryDomainConfigs(opts *bind.CallOpts, nameHash [32]byte) (struct {
 	A          []byte
 	AAAA       []byte
@@ -388,7 +387,7 @@ func (_BasView *BasViewCaller) QueryDomainConfigs(opts *bind.CallOpts, nameHash 
 
 // QueryDomainConfigs is a free data retrieval call binding the contract method 0x4f69b3a2.
 //
-// Solidity: function queryDomainConfigs(bytes32 nameHash) constant returns(bytes A, bytes AAAA, bytes MX, bytes BlockChain, bytes IOTA, bytes CName, bytes MXBCA)
+// Solidity: function queryDomainConfigs(bytes32 nameHash) view returns(bytes A, bytes AAAA, bytes MX, bytes BlockChain, bytes IOTA, bytes CName, bytes MXBCA)
 func (_BasView *BasViewSession) QueryDomainConfigs(nameHash [32]byte) (struct {
 	A          []byte
 	AAAA       []byte
@@ -403,7 +402,7 @@ func (_BasView *BasViewSession) QueryDomainConfigs(nameHash [32]byte) (struct {
 
 // QueryDomainConfigs is a free data retrieval call binding the contract method 0x4f69b3a2.
 //
-// Solidity: function queryDomainConfigs(bytes32 nameHash) constant returns(bytes A, bytes AAAA, bytes MX, bytes BlockChain, bytes IOTA, bytes CName, bytes MXBCA)
+// Solidity: function queryDomainConfigs(bytes32 nameHash) view returns(bytes A, bytes AAAA, bytes MX, bytes BlockChain, bytes IOTA, bytes CName, bytes MXBCA)
 func (_BasView *BasViewCallerSession) QueryDomainConfigs(nameHash [32]byte) (struct {
 	A          []byte
 	AAAA       []byte
@@ -418,7 +417,7 @@ func (_BasView *BasViewCallerSession) QueryDomainConfigs(nameHash [32]byte) (str
 
 // QueryDomainEmailInfo is a free data retrieval call binding the contract method 0x1f766f14.
 //
-// Solidity: function queryDomainEmailInfo(bytes32 nameHash) constant returns(bytes name, address owner, uint256 expiration, bool isActive, bool openToPublic)
+// Solidity: function queryDomainEmailInfo(bytes32 nameHash) view returns(bytes name, address owner, uint256 expiration, bool isActive, bool openToPublic)
 func (_BasView *BasViewCaller) QueryDomainEmailInfo(opts *bind.CallOpts, nameHash [32]byte) (struct {
 	Name         []byte
 	Owner        common.Address
@@ -440,7 +439,7 @@ func (_BasView *BasViewCaller) QueryDomainEmailInfo(opts *bind.CallOpts, nameHas
 
 // QueryDomainEmailInfo is a free data retrieval call binding the contract method 0x1f766f14.
 //
-// Solidity: function queryDomainEmailInfo(bytes32 nameHash) constant returns(bytes name, address owner, uint256 expiration, bool isActive, bool openToPublic)
+// Solidity: function queryDomainEmailInfo(bytes32 nameHash) view returns(bytes name, address owner, uint256 expiration, bool isActive, bool openToPublic)
 func (_BasView *BasViewSession) QueryDomainEmailInfo(nameHash [32]byte) (struct {
 	Name         []byte
 	Owner        common.Address
@@ -453,7 +452,7 @@ func (_BasView *BasViewSession) QueryDomainEmailInfo(nameHash [32]byte) (struct 
 
 // QueryDomainEmailInfo is a free data retrieval call binding the contract method 0x1f766f14.
 //
-// Solidity: function queryDomainEmailInfo(bytes32 nameHash) constant returns(bytes name, address owner, uint256 expiration, bool isActive, bool openToPublic)
+// Solidity: function queryDomainEmailInfo(bytes32 nameHash) view returns(bytes name, address owner, uint256 expiration, bool isActive, bool openToPublic)
 func (_BasView *BasViewCallerSession) QueryDomainEmailInfo(nameHash [32]byte) (struct {
 	Name         []byte
 	Owner        common.Address
@@ -466,7 +465,7 @@ func (_BasView *BasViewCallerSession) QueryDomainEmailInfo(nameHash [32]byte) (s
 
 // QueryDomainInfo is a free data retrieval call binding the contract method 0x3870d91e.
 //
-// Solidity: function queryDomainInfo(bytes32 nameHash) constant returns(bytes name, address owner, uint256 expiration, bool isRoot, bool rIsOpen, bool rIsCustom, bool rIsRare, uint256 rCusPrice, bytes32 sRootHash, bool isMarketOrder)
+// Solidity: function queryDomainInfo(bytes32 nameHash) view returns(bytes name, address owner, uint256 expiration, bool isRoot, bool rIsOpen, bool rIsCustom, bool rIsRare, uint256 rCusPrice, bytes32 sRootHash, bool isMarketOrder)
 func (_BasView *BasViewCaller) QueryDomainInfo(opts *bind.CallOpts, nameHash [32]byte) (struct {
 	Name          []byte
 	Owner         common.Address
@@ -498,7 +497,7 @@ func (_BasView *BasViewCaller) QueryDomainInfo(opts *bind.CallOpts, nameHash [32
 
 // QueryDomainInfo is a free data retrieval call binding the contract method 0x3870d91e.
 //
-// Solidity: function queryDomainInfo(bytes32 nameHash) constant returns(bytes name, address owner, uint256 expiration, bool isRoot, bool rIsOpen, bool rIsCustom, bool rIsRare, uint256 rCusPrice, bytes32 sRootHash, bool isMarketOrder)
+// Solidity: function queryDomainInfo(bytes32 nameHash) view returns(bytes name, address owner, uint256 expiration, bool isRoot, bool rIsOpen, bool rIsCustom, bool rIsRare, uint256 rCusPrice, bytes32 sRootHash, bool isMarketOrder)
 func (_BasView *BasViewSession) QueryDomainInfo(nameHash [32]byte) (struct {
 	Name          []byte
 	Owner         common.Address
@@ -516,7 +515,7 @@ func (_BasView *BasViewSession) QueryDomainInfo(nameHash [32]byte) (struct {
 
 // QueryDomainInfo is a free data retrieval call binding the contract method 0x3870d91e.
 //
-// Solidity: function queryDomainInfo(bytes32 nameHash) constant returns(bytes name, address owner, uint256 expiration, bool isRoot, bool rIsOpen, bool rIsCustom, bool rIsRare, uint256 rCusPrice, bytes32 sRootHash, bool isMarketOrder)
+// Solidity: function queryDomainInfo(bytes32 nameHash) view returns(bytes name, address owner, uint256 expiration, bool isRoot, bool rIsOpen, bool rIsCustom, bool rIsRare, uint256 rCusPrice, bytes32 sRootHash, bool isMarketOrder)
 func (_BasView *BasViewCallerSession) QueryDomainInfo(nameHash [32]byte) (struct {
 	Name          []byte
 	Owner         common.Address
@@ -534,7 +533,7 @@ func (_BasView *BasViewCallerSession) QueryDomainInfo(nameHash [32]byte) (struct
 
 // QueryEmailInfo is a free data retrieval call binding the contract method 0xa806e95c.
 //
-// Solidity: function queryEmailInfo(bytes32 mailHash) constant returns(address owner, uint256 expiration, bytes32 domainHash, bool isValid, bytes aliasName, bytes bcAddress)
+// Solidity: function queryEmailInfo(bytes32 mailHash) view returns(address owner, uint256 expiration, bytes32 domainHash, bool isValid, bytes aliasName, bytes bcAddress)
 func (_BasView *BasViewCaller) QueryEmailInfo(opts *bind.CallOpts, mailHash [32]byte) (struct {
 	Owner      common.Address
 	Expiration *big.Int
@@ -558,7 +557,7 @@ func (_BasView *BasViewCaller) QueryEmailInfo(opts *bind.CallOpts, mailHash [32]
 
 // QueryEmailInfo is a free data retrieval call binding the contract method 0xa806e95c.
 //
-// Solidity: function queryEmailInfo(bytes32 mailHash) constant returns(address owner, uint256 expiration, bytes32 domainHash, bool isValid, bytes aliasName, bytes bcAddress)
+// Solidity: function queryEmailInfo(bytes32 mailHash) view returns(address owner, uint256 expiration, bytes32 domainHash, bool isValid, bytes aliasName, bytes bcAddress)
 func (_BasView *BasViewSession) QueryEmailInfo(mailHash [32]byte) (struct {
 	Owner      common.Address
 	Expiration *big.Int
@@ -572,7 +571,7 @@ func (_BasView *BasViewSession) QueryEmailInfo(mailHash [32]byte) (struct {
 
 // QueryEmailInfo is a free data retrieval call binding the contract method 0xa806e95c.
 //
-// Solidity: function queryEmailInfo(bytes32 mailHash) constant returns(address owner, uint256 expiration, bytes32 domainHash, bool isValid, bytes aliasName, bytes bcAddress)
+// Solidity: function queryEmailInfo(bytes32 mailHash) view returns(address owner, uint256 expiration, bytes32 domainHash, bool isValid, bytes aliasName, bytes bcAddress)
 func (_BasView *BasViewCallerSession) QueryEmailInfo(mailHash [32]byte) (struct {
 	Owner      common.Address
 	Expiration *big.Int
@@ -586,7 +585,7 @@ func (_BasView *BasViewCallerSession) QueryEmailInfo(mailHash [32]byte) (struct 
 
 // QueryOrderInfo is a free data retrieval call binding the contract method 0xd8d0db68.
 //
-// Solidity: function queryOrderInfo(address seller, bytes32 nameHash) constant returns(bytes name, uint256 price, bool isValid)
+// Solidity: function queryOrderInfo(address seller, bytes32 nameHash) view returns(bytes name, uint256 price, bool isValid)
 func (_BasView *BasViewCaller) QueryOrderInfo(opts *bind.CallOpts, seller common.Address, nameHash [32]byte) (struct {
 	Name    []byte
 	Price   *big.Int
@@ -604,7 +603,7 @@ func (_BasView *BasViewCaller) QueryOrderInfo(opts *bind.CallOpts, seller common
 
 // QueryOrderInfo is a free data retrieval call binding the contract method 0xd8d0db68.
 //
-// Solidity: function queryOrderInfo(address seller, bytes32 nameHash) constant returns(bytes name, uint256 price, bool isValid)
+// Solidity: function queryOrderInfo(address seller, bytes32 nameHash) view returns(bytes name, uint256 price, bool isValid)
 func (_BasView *BasViewSession) QueryOrderInfo(seller common.Address, nameHash [32]byte) (struct {
 	Name    []byte
 	Price   *big.Int
@@ -615,7 +614,7 @@ func (_BasView *BasViewSession) QueryOrderInfo(seller common.Address, nameHash [
 
 // QueryOrderInfo is a free data retrieval call binding the contract method 0xd8d0db68.
 //
-// Solidity: function queryOrderInfo(address seller, bytes32 nameHash) constant returns(bytes name, uint256 price, bool isValid)
+// Solidity: function queryOrderInfo(address seller, bytes32 nameHash) view returns(bytes name, uint256 price, bool isValid)
 func (_BasView *BasViewCallerSession) QueryOrderInfo(seller common.Address, nameHash [32]byte) (struct {
 	Name    []byte
 	Price   *big.Int
@@ -626,7 +625,7 @@ func (_BasView *BasViewCallerSession) QueryOrderInfo(seller common.Address, name
 
 // Rel is a free data retrieval call binding the contract method 0xce26e78a.
 //
-// Solidity: function rel() constant returns(address)
+// Solidity: function rel() view returns(address)
 func (_BasView *BasViewCaller) Rel(opts *bind.CallOpts) (common.Address, error) {
 	var (
 		ret0 = new(common.Address)
@@ -638,14 +637,14 @@ func (_BasView *BasViewCaller) Rel(opts *bind.CallOpts) (common.Address, error) 
 
 // Rel is a free data retrieval call binding the contract method 0xce26e78a.
 //
-// Solidity: function rel() constant returns(address)
+// Solidity: function rel() view returns(address)
 func (_BasView *BasViewSession) Rel() (common.Address, error) {
 	return _BasView.Contract.Rel(&_BasView.CallOpts)
 }
 
 // Rel is a free data retrieval call binding the contract method 0xce26e78a.
 //
-// Solidity: function rel() constant returns(address)
+// Solidity: function rel() view returns(address)
 func (_BasView *BasViewCallerSession) Rel() (common.Address, error) {
 	return _BasView.Contract.Rel(&_BasView.CallOpts)
 }

@@ -44,19 +44,20 @@ func (er *EthResolver) DomainA(domain string) []net.IP {
 	return r
 }
 
+//								   				  MX，		 MXBCA
 func (er *EthResolver) DomainMX(domain string) ([]net.IP, []bmail.Address) {
 	conf := QueryDomainConfigs(GetHash(domain), 0)
-	ipStrings := Split(conf.A, Separator)
+	mx := Split(conf.MX, Separator)
 	var ips []net.IP
-	for _, t := range ipStrings {
+	for _, t := range mx {
 		ips = append(ips, net.ParseIP(t))
 	}
-	mxStrings :=  Split(conf.MX, Separator)
-	var mxs []bmail.Address
-	for _, t := range mxStrings {
-		mxs = append(mxs, bmail.Address(t))
+	mxbca :=  Split(conf.MXBCA, Separator)
+	var bca []bmail.Address
+	for _, t := range mxbca {
+		bca = append(bca, bmail.Address(t))
 	}
-	return ips, mxs
+	return ips, bca
 }
 
 func (er *EthResolver) BMailBCA(mailName string) (bmail.Address, string) {

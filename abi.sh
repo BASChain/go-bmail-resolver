@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 rm -rf ~/workspace/go/src/github.com/BASChain/go-bmail-resolver/eth
 
 solc ~/workspace/contract/BASChain/smart_contract/contracts/BasView.sol --abi -o ~/workspace/go/src/github.com/BASChain/go-bmail-resolver/eth

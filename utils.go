@@ -7,34 +7,34 @@ import (
 
 type Hash [32]byte
 
-func (hash Hash)String() string{
-	return "0x"+hex.EncodeToString(hash[:])
+func (hash Hash) String() string {
+	return "0x" + hex.EncodeToString(hash[:])
 }
 
-func GetHash(key string) Hash{
-	hash  := crypto.Keccak256Hash([]byte(key))
+func GetHash(key string) Hash {
+	hash := crypto.Keccak256Hash([]byte(key))
 	var ret [32]byte
-	for i:=0;i<32;i++ {
+	for i := 0; i < 32; i++ {
 		ret[i] = hash[i]
 	}
 	return ret
 }
 
 var RetryRule = map[int]int{
-	1:1,
-	2:2,
-	3:3,
+	1: 1,
+	2: 2,
+	3: 3,
 }
 
 func Split(buffer []byte, s byte) []string {
 	var recovered []string
-	start  :=  0
-	for i,  e:=range buffer  {
+	start := 0
+	for i, e := range buffer {
 		var temp []byte
-		if e  == s {
+		if e == s {
 			temp = buffer[start:i]
 			recovered = append(recovered, string(temp))
-			start  = i+1
+			start = i + 1
 		}
 	}
 	recovered = append(recovered, string(buffer[start:]))

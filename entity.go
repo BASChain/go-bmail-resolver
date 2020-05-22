@@ -15,7 +15,7 @@ type Config struct {
 	MXBCA      []byte
 }
 
-func ConvertToConfig(s struct{
+func ConvertToConfig(s struct {
 	A          []byte
 	AAAA       []byte
 	MX         []byte
@@ -23,7 +23,7 @@ func ConvertToConfig(s struct{
 	IOTA       []byte
 	CName      []byte
 	MXBCA      []byte
-}) Config{
+}) Config {
 	return Config{
 		A:          s.A,
 		AAAA:       s.AAAA,
@@ -44,14 +44,14 @@ type MailInfo struct {
 	BcAddress  []byte
 }
 
-func ConvertToMailInfo(s struct{
+func ConvertToMailInfo(s struct {
 	Owner      common.Address
 	Expiration *big.Int
 	DomainHash [32]byte
 	IsValid    bool
 	AliasName  []byte
 	BcAddress  []byte
-}) MailInfo{
+}) MailInfo {
 	return MailInfo{
 		Owner:      s.Owner,
 		Expiration: s.Expiration,

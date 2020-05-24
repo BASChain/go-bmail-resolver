@@ -27,6 +27,9 @@ var RetryRule = map[int]int{
 }
 
 func Split(buffer []byte, s byte) []string {
+	if len(buffer) == 0 {
+		return []string{}
+	}
 	var recovered []string
 	start := 0
 	for i, e := range buffer {

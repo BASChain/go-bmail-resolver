@@ -1,6 +1,7 @@
 package resolver
 
 import (
+	"github.com/BASChain/go-bmail-account"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
 )
@@ -40,8 +41,8 @@ type MailInfo struct {
 	Expiration *big.Int
 	DomainHash [32]byte
 	IsValid    bool
-	AliasName  []byte
-	BcAddress  []byte
+	AliasName  string
+	BcAddress  bmail.Address
 }
 
 func ConvertToMailInfo(s struct {
@@ -57,7 +58,7 @@ func ConvertToMailInfo(s struct {
 		Expiration: s.Expiration,
 		DomainHash: s.DomainHash,
 		IsValid:    s.IsValid,
-		AliasName:  s.AliasName,
-		BcAddress:  s.BcAddress,
+		AliasName:  string(s.AliasName),
+		BcAddress:  bmail.Address(string(s.BcAddress)),
 	}
 }

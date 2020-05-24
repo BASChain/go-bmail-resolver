@@ -1,6 +1,7 @@
 package resolver
 
 import (
+	"fmt"
 	"github.com/BASChain/go-bmail-account"
 	"github.com/BASChain/go-bmail-resolver/eth"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -8,7 +9,6 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"math/big"
 	"net"
-	"time"
 )
 
 type EthResolverConf struct {
@@ -35,7 +35,11 @@ type EthResolver struct {
 }
 
 func (er *EthResolver) DomainA(domain string) []net.IP {
-	conf := QueryDomainConfigs(GetHash(domain), 0)
+	conf, err := QueryDomainConfigs(GetHash(domain))
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
 	ipStrings := Split(conf.A, Separator)
 	var r []net.IP
 	for _, t := range ipStrings {
@@ -44,14 +48,19 @@ func (er *EthResolver) DomainA(domain string) []net.IP {
 	return r
 }
 
-//								   				  MX，		 MXBCA
 func (er *EthResolver) DomainMX(domain string) ([]net.IP, []bmail.Address) {
-	conf := QueryDomainConfigs(GetHash(domain), 0)
+	conf, err := QueryDomainConfigs(GetHash(domain))
+	if err != nil {
+		fmt.Println(err)
+		return nil, nil
+	}
+
 	mx := Split(conf.MX, Separator)
 	var ips []net.IP
 	for _, t := range mx {
 		ips = append(ips, net.ParseIP(t))
 	}
+
 	mxbca := Split(conf.MXBCA, Separator)
 	var bca []bmail.Address
 	for _, t := range mxbca {
@@ -61,48 +70,36 @@ func (er *EthResolver) DomainMX(domain string) ([]net.IP, []bmail.Address) {
 }
 
 func (er *EthResolver) BMailBCA(mailName string) (bmail.Address, string) {
-	info := QueryEmailInfo(GetHash(mailName), 0)
-	return bmail.Address(string(info.BcAddress)), string(info.AliasName)
+	info, err := QueryEmailInfo(GetHash(mailName))
+	if err != nil {
+		fmt.Println(err)
+		return "", ""
+	}
+	return info.BcAddress, info.AliasName
 }
 
-func QueryEmailInfo(hash Hash, tryTimes int) *MailInfo {
+func QueryEmailInfo(hash Hash) (*MailInfo, error) {
 	opts := GetCallOpts(0)
 	conn := connect()
 	defer conn.Close()
 	result, err := BasView(conn).QueryEmailInfo(opts, hash)
 	if err != nil {
-		tryTimes += 1
-		if tryTimes > 3 {
-			logger.Error("can't query mail info after many retries", err)
-			return nil
-		} else {
-			time.Sleep(time.Duration(RetryRule[tryTimes]) * time.Second)
-			return QueryEmailInfo(hash, tryTimes)
-		}
-	} else {
-		r := ConvertToMailInfo(result)
-		return &r
+		return nil, err
 	}
+	r := ConvertToMailInfo(result)
+	return &r, nil
 }
 
-func QueryDomainConfigs(hash Hash, tryTimes int) *Config {
+func QueryDomainConfigs(hash Hash) (*Config, error) {
 	opts := GetCallOpts(0)
 	conn := connect()
 	defer conn.Close()
 	result, err := BasView(conn).QueryDomainConfigs(opts, hash)
 	if err != nil {
-		tryTimes += 1
-		if tryTimes > 3 {
-			logger.Error("can't query domain config after many retries", err)
-			return nil
-		} else {
-			time.Sleep(time.Duration(RetryRule[tryTimes]) * time.Second)
-			return QueryDomainConfigs(hash, tryTimes)
-		}
-	} else {
-		r := ConvertToConfig(result)
-		return &r
+		return nil, err
 	}
+	r := ConvertToConfig(result)
+	return &r, nil
 }
 
 func NewEthResolver(debug bool) NameResolver {

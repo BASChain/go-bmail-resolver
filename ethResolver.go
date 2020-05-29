@@ -19,7 +19,7 @@ type EthResolverConf struct {
 var conf = []*EthResolverConf{
 	{
 		AccessPoints: []string{"https://infura.io/v3/f3245cef90ed440897e43efc6b3dd0f7"},
-		BasViewAddr:  common.HexToAddress("0x58af099F693efb2b907b1450Bb0268C45bCB6b5D"),
+		BasViewAddr:  common.HexToAddress("0x331c08bBd8493d190906aFFcF134691846A4957F"),
 	},
 	{
 		AccessPoints: []string{"https://ropsten.infura.io/v3/f3245cef90ed440897e43efc6b3dd0f7",

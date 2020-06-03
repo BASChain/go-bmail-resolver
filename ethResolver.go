@@ -73,11 +73,10 @@ func (er *EthResolver) DomainA3(domain string) ([]net.IP, []string, error) {
 	for _, t := range ipStrings {
 		r = append(r, net.ParseIP(t))
 	}
-	var name []string
 	for _, t := range cNameStrings {
 		n = append(n, t)
 	}
-	return r, name, nil
+	return r, n, nil
 }
 
 

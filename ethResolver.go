@@ -61,6 +61,25 @@ func (er *EthResolver) DomainARetErr(domain string) ([]net.IP, error) {
 	return r, nil
 }
 
+func (er *EthResolver) DomainACnameRetErr(domain string) ([]net.IP, []string, error) {
+	conf, err := QueryDomainConfigs(GetHash(domain))
+	if err != nil {
+		return nil, nil, err
+	}
+	ipStrings := Split(conf.A, Separator)
+	cNameStrings := Split(conf.CName, Separator)
+	var r []net.IP
+	var n []string
+	for _, t := range ipStrings {
+		r = append(r, net.ParseIP(t))
+	}
+	var name []string
+	for _, t := range cNameStrings {
+		n = append(n, t)
+	}
+	return r, name, nil
+}
+
 
 
 func (er *EthResolver) DomainMX(domain string) ([]net.IP, []bmail.Address) {
@@ -122,6 +141,7 @@ func (er *EthResolver) BMailBCARetErr(mailName string) (bmail.Address, string, e
 	}
 	return info.BcAddress, info.AliasName,  nil
 }
+
 
 func QueryEmailInfo(hash Hash) (*MailInfo, error) {
 	opts := GetCallOpts(0)

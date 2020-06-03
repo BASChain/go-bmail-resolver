@@ -48,6 +48,21 @@ func (er *EthResolver) DomainA(domain string) []net.IP {
 	return r
 }
 
+func (er *EthResolver) DomainARetErr(domain string) ([]net.IP, error) {
+	conf, err := QueryDomainConfigs(GetHash(domain))
+	if err != nil {
+		return nil, err
+	}
+	ipStrings := Split(conf.A, Separator)
+	var r []net.IP
+	for _, t := range ipStrings {
+		r = append(r, net.ParseIP(t))
+	}
+	return r, nil
+}
+
+
+
 func (er *EthResolver) DomainMX(domain string) ([]net.IP, []bmail.Address) {
 	conf, err := QueryDomainConfigs(GetHash(domain))
 	if err != nil {
@@ -69,6 +84,27 @@ func (er *EthResolver) DomainMX(domain string) ([]net.IP, []bmail.Address) {
 	return ips, bca
 }
 
+func (er *EthResolver) DomainMXRetErr(domain string) ([]net.IP, []bmail.Address, error) {
+	conf, err := QueryDomainConfigs(GetHash(domain))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	mx := Split(conf.MX, Separator)
+	var ips []net.IP
+	for _, t := range mx {
+		ips = append(ips, net.ParseIP(t))
+	}
+
+	mxbca := Split(conf.MXBCA, Separator)
+	var bca []bmail.Address
+	for _, t := range mxbca {
+		bca = append(bca, bmail.Address(t))
+	}
+	return ips, bca,  nil
+}
+
+
 func (er *EthResolver) BMailBCA(mailName string) (bmail.Address, string) {
 	info, err := QueryEmailInfo(GetHash(mailName))
 	if err != nil {
@@ -76,6 +112,15 @@ func (er *EthResolver) BMailBCA(mailName string) (bmail.Address, string) {
 		return "", ""
 	}
 	return info.BcAddress, info.AliasName
+}
+
+func (er *EthResolver) BMailBCARetErr(mailName string) (bmail.Address, string, error) {
+	info, err := QueryEmailInfo(GetHash(mailName))
+	if err != nil {
+		fmt.Println(err)
+		return "", "", err
+	}
+	return info.BcAddress, info.AliasName,  nil
 }
 
 func QueryEmailInfo(hash Hash) (*MailInfo, error) {

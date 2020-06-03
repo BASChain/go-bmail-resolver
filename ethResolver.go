@@ -48,7 +48,7 @@ func (er *EthResolver) DomainA(domain string) []net.IP {
 	return r
 }
 
-func (er *EthResolver) DomainARetErr(domain string) ([]net.IP, error) {
+func (er *EthResolver) DomainA2(domain string) ([]net.IP, error) {
 	conf, err := QueryDomainConfigs(GetHash(domain))
 	if err != nil {
 		return nil, err
@@ -61,7 +61,7 @@ func (er *EthResolver) DomainARetErr(domain string) ([]net.IP, error) {
 	return r, nil
 }
 
-func (er *EthResolver) DomainACnameRetErr(domain string) ([]net.IP, []string, error) {
+func (er *EthResolver) DomainA3(domain string) ([]net.IP, []string, error) {
 	conf, err := QueryDomainConfigs(GetHash(domain))
 	if err != nil {
 		return nil, nil, err

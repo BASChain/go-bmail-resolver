@@ -14,6 +14,15 @@ func (ds *DNSResolver) DomainA(domain string) []net.IP {
 	return nil
 }
 
+func (ds *DNSResolver)DomainA2(domainName string) ([]net.IP,error) {
+	return nil,nil
+}
+
+func (ds *DNSResolver)DomainA3(domain string) ([]net.IP, []string, error)  {
+	return nil,nil,nil
+}
+
+
 func (ds *DNSResolver) DomainMX(domainMX string) ([]net.IP, []bmail.Address) {
 	fmt.Println("implement me")
 	return nil, nil

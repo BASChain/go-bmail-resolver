@@ -1,7 +1,7 @@
 package resolver
 
 import (
-	"github.com/BASChain/go-bmail-account"
+	"github.com/realbmail/go-bmail-account"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
 )

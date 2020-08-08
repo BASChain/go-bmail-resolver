@@ -2,7 +2,7 @@ package resolver
 
 import (
 	"fmt"
-	"github.com/BASChain/go-bmail-account"
+	"github.com/realbmail/go-bmail-account"
 	"net"
 )
 

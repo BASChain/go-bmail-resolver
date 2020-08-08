@@ -2,8 +2,8 @@ package resolver
 
 import (
 	"fmt"
-	"github.com/BASChain/go-bmail-account"
-	"github.com/BASChain/go-bmail-resolver/eth"
+	"github.com/realbmail/go-bmail-account"
+	"github.com/realbmail/go-bmail-resolver/eth"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
